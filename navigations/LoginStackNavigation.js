@@ -1,5 +1,6 @@
+import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { MainTabNavigation } from "../navigations";
+import MainTabNavigation from "../navigations/MainTabNavigation";
 import { LoginScreen } from '../screens';
 
 const Stack = createNativeStackNavigator();

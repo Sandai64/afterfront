@@ -6,7 +6,6 @@ const Tab = createBottomTabNavigator();
 
 const MainTabNavigation = ({navigation}) => {
 
-
   return (
     <Tab.Navigator
       initialRouteName={"Default"}
