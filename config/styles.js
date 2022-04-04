@@ -6,3 +6,5 @@ const GlobalStyles = {
     deny: '#FA4A4A',
   },
 };
+
+export default GlobalStyles;
