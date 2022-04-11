@@ -5,6 +5,13 @@ const GlobalStyles = {
     accept: '#98E2C6',
     deny: '#FA4A4A',
   },
+  headerTitleStyle: {
+    fontSize: 24,
+    fontFamily: 'Inter_Regular',
+  },
+  fontFamily: {
+    interRegular: 'Inter_Regular',
+  },
 };
 
 export default GlobalStyles;
