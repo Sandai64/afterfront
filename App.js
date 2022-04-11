@@ -5,7 +5,7 @@ import { LoginStackNavigation } from './navigations';
 export default function App() {
   return (
     <NavigationContainer>
-      <LoginStackNavigation/>
+      <LoginStackNavigation />
     </NavigationContainer>
   );
 }
