@@ -8,7 +8,7 @@ import { useFonts } from 'expo-font';
 const WelcomeScreen = ({ navigation }) => {
 
   const wait = 2200;
-  const duration = 500;
+  const duration = 250;
 
   let [fontsLoaded] = useFonts({
     Inter_Regular: require('../../static/fonts/Inter-Regular.ttf'),
@@ -17,7 +17,7 @@ const WelcomeScreen = ({ navigation }) => {
   useEffect(() => {
     setTimeout(() => {
       navigation.replace('Logged');
-    }, (wait+50));
+    }, (wait+10));
   }, [fontsLoaded]);
 
   const fadeAnim = useRef(new Animated.Value(1)).current;
