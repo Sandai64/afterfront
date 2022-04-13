@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, View, Text, FlatList } from 'react-native';
-import { OrderItem } from '../../components';
 import GlobalStyles from '../../config/styles';
 
 const OrdersScreen = () => {
