@@ -1,6 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { OrderDetailScreen, OrdersScreen } from '../screens';
+import { OrderDetailScreen, OrdersListScreen } from '../screens';
 import GlobalStyles from '../config/styles';
 
 const Stack = createNativeStackNavigator();
@@ -20,7 +20,7 @@ const OrdersStackNavigation = () => {
     >
       <Stack.Screen
         name="List"
-        component={OrdersScreen}
+        component={OrdersListScreen}
         options={{ title: 'Commandes' }}
       />
       <Stack.Screen
