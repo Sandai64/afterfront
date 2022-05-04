@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  createNativeStackNavigator,
-  CardStyleInterpolators,
-} from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainTabNavigation from '../navigations/MainTabNavigation';
 import { LoginScreen, WelcomeScreen } from '../screens';
 
