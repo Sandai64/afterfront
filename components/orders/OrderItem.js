@@ -1,11 +1,16 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
-import { Svg, Line, Circle } from 'react-native-svg';
 import GlobalStyles from '../../config/styles';
+import MoreIcon from './MoreIcon';
 
-const OrderItem = ({ item }) => {
+const OrderItem = ({ navigation, item }) => {
   return (
-    <TouchableOpacity style={style.item}>
+    <TouchableOpacity
+      style={style.item}
+      onPress={() => {
+        navigation.navigate('Detail');
+      }}
+    >
       <View style={style.top}>
         <View>
           <Text style={style.text}>Table {item.table}</Text>
@@ -15,20 +20,7 @@ const OrderItem = ({ item }) => {
       </View>
       <View style={style.bottom}>
         <Text style={style.text}>Status : {item.status.text}</Text>
-        <Svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#CCC"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <Circle cx="12" cy="12" r="10" />
-          <Line x1="12" y1="16" x2="12" y2="12" />
-          <Line x1="12" y1="8" x2="12.01" y2="8" />
-        </Svg>
+        <MoreIcon />
       </View>
     </TouchableOpacity>
   );
@@ -40,6 +32,7 @@ const style = StyleSheet.create({
     padding: '2%',
     marginVertical: '2%',
     marginHorizontal: '5%',
+    borderRadius: 8,
   },
   top: {
     justifyContent: 'space-between',
