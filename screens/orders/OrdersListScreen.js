@@ -3,12 +3,12 @@ import { StyleSheet, View, Text, FlatList } from 'react-native';
 import GlobalStyles from '../../config/styles';
 import { OrderItem } from '../../components';
 
-const OrdersListScreen = () => {
+const OrdersListScreen = props => {
   const data = [
     {
       id: 150,
       table: 5,
-      date: "24/04/2021",
+      date: '24/04/2021',
       status: {
         id: 5,
         text: 'En attente',
@@ -18,7 +18,7 @@ const OrdersListScreen = () => {
     {
       id: 45,
       table: 3,
-      date: "24/04/2021",
+      date: '24/04/2021',
       status: {
         id: 2,
         text: 'Terminée',
@@ -32,7 +32,7 @@ const OrdersListScreen = () => {
       <FlatList
         style={style.list}
         data={data}
-        renderItem={({ item }) => <OrderItem item={item} />}
+        renderItem={({ item }) => <OrderItem {...props} item={item} />}
         keyExtractor={(item, i) => i}
       />
     </View>
