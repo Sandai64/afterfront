@@ -1,15 +1,4 @@
 {
-	"flex": {
-		"style": {
-			"display": "flex"
-		}
-	},
-	"text-blue-400": {
-		"style": {
-			"--tw-text-opacity": 1,
-			"color": "rgb(96 165 250 / var(--tw-text-opacity))"
-		}
-	},
 	"text-green-300": {
 		"style": {
 			"--tw-text-opacity": 1,
