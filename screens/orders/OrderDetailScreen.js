@@ -6,7 +6,7 @@ import ProductItem from '../../components/orders/ProductItem';
 
 const OrderDetailScreen = () => {
   const [states, setStates] = useState(['default']);
-  const [selectedValue, setSelectedValue] = useState(states[0]);
+  const [selectedValue, setSelectedValue] = useState(states[0].id);
   const [products, Products] = useState(['name']);
 
   useEffect(() => {
@@ -23,9 +23,9 @@ const OrderDetailScreen = () => {
       try {
         // Fetch les statuts
         setStates([
-          'En attente',
-          'En cours de préparation',
-          'Commande terminée',
+          { id: 1, name: 'En attente' },
+          { id: 2, name: 'En cours de préparation' },
+          { id: 3, name: 'Commande terminée' },
         ]);
       } catch (e) {
         console.log(e);
@@ -65,7 +65,7 @@ const OrderDetailScreen = () => {
             itemStyle={{ backgroundColor: 'red' }}
           >
             {states.map(value => (
-              <Picker.Item label={value} value={value} />
+              <Picker.Item label={value.name} value={value.id} />
             ))}
           </Picker>
         </View>
