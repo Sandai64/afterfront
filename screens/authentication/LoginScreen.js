@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
 import GlobalStyles from '../../config/styles';
+import { authActionLogin } from '../../services/authService';
 
 const styles = StyleSheet.create({
   container: {
@@ -25,6 +26,27 @@ const styles = StyleSheet.create({
 });
 
 const LoginScreen = ({ navigation }) => {
+  const [showLoading, setShowLoading] = useState(false);
+  const [showError, setShowError] = useState(false);
+
+  const delegateShowError = () => {
+    setShowError(true);
+    setTimeout(setShowError(false), 5000);
+  }
+
+  // Define login action
+  const actionLogin = async () => {
+    setShowLoading(true);
+    
+    try {
+      authActionLogin('FIXME', 'FIXME');
+    } catch (_) {
+      delegateShowError();
+    }
+
+    setShowLoading(false);
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.pageHeader}>Connexion</Text>
