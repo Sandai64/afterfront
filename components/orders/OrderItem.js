@@ -13,13 +13,13 @@ const OrderItem = ({ navigation, item }) => {
     >
       <View style={style.top}>
         <View>
-          <Text style={style.text}>Table {item.table}</Text>
+          <Text style={style.text}>Table {item.idTable}</Text>
           <Text style={style.text}>{item.date}</Text>
         </View>
-        <Text style={style.id}>#{item.id}</Text>
+        <Text style={style.id}>#{item.idCommande}</Text>
       </View>
       <View style={style.bottom}>
-        <Text style={style.text}>Status : {item.status.text}</Text>
+        <Text style={style.text}>Status : {item.idStatut.nom}</Text>
         <MoreIcon />
       </View>
     </TouchableOpacity>

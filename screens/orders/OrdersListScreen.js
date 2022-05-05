@@ -12,7 +12,6 @@ const OrdersListScreen = props => {
   const fetch = async () => {
     try {
       const data = await OrdersAPI.getOrders();
-      console.log("LA", data);
       setOrders(data);
     } catch(e) {
       console.log("EEEEE", e);
@@ -24,34 +23,11 @@ const OrdersListScreen = props => {
     fetch();
   }, []);
 
-  const data = [
-    {
-      id: 150,
-      table: 5,
-      date: '24/04/2021',
-      status: {
-        id: 5,
-        text: 'En attente',
-      },
-      ttc: 35,
-    },
-    {
-      id: 45,
-      table: 3,
-      date: '24/04/2021',
-      status: {
-        id: 2,
-        text: 'Terminée',
-      },
-      ttc: 10,
-    },
-  ];
-
   return (
     <View style={style.container}>
       <FlatList
         style={style.list}
-        data={data}
+        data={orders}
         renderItem={({ item }) => <OrderItem {...props} item={item} />}
         keyExtractor={(item, i) => i}
       />
