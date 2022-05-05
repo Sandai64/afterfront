@@ -51,6 +51,12 @@ const LoginScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.pageHeader}>Connexion</Text>
       <Button color="#261F18" title="OK, allons-y !" />
+
+      {showLoading &&
+        <Text>Loading...</Text>}
+
+      {showError &&
+        <Text>An error occured.</Text>}
     </View>
   );
 };
