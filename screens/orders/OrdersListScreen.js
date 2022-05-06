@@ -2,25 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, FlatList } from 'react-native';
 import GlobalStyles from '../../config/styles';
 import { OrderItem } from '../../components';
-import OrdersAPI from "../../services/OrdersAPI";
+import API from "../../services";
 
 const OrdersListScreen = props => {
 
   const [orders, setOrders] = useState([]);
 
-
-  const fetch = async () => {
-    try {
-      const data = await OrdersAPI.getOrders();
-      setOrders(data);
-    } catch(e) {
-      console.log("EEEEE", e);
-    }
-  }
-
-
   useEffect(() => {
-    fetch();
+    (async() => {
+      try {
+        const data = await API.Orders.getOrders();
+        setOrders(data);
+      } catch(e) {
+        console.log(e);
+      }
+    })();
   }, []);
 
   return (
