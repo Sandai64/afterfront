@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, FlatList } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import GlobalStyles from '../../config/styles';
-import ProductItem from '../../components/orders/ProductItem';
+import { ProductItem } from '../../components/';
 
 const OrderDetailScreen = () => {
   const [states, setStates] = useState(['default']);
