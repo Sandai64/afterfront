@@ -2,31 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, FlatList } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import GlobalStyles from '../../config/styles';
-import { ProductItem } from '../../components/';
+import { Loader, ProductItem } from '../../components/';
+import API from '../../services/';
 
-const OrderDetailScreen = () => {
-  const [states, setStates] = useState(['default']);
-  const [selectedValue, setSelectedValue] = useState(states[0].id);
-  const [products, Products] = useState(['name']);
+const OrderDetailScreen = ({
+  route: {
+    params: { item, states },
+  },
+}) => {
+  const [selectedValue, setSelectedValue] = useState(item.idStatut.idStatut);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     (async () => {
       try {
-        // Fetch le statut de la commande
-        setSelectedValue({ id: 1, name: 'En attente' });
-      } catch (e) {
-        console.log(e);
-      }
-    })();
-
-    (async () => {
-      try {
-        // Fetch les statuts
-        setStates([
-          { id: 1, name: 'En attente' },
-          { id: 2, name: 'En cours de préparation' },
-          { id: 3, name: 'Commande terminée' },
-        ]);
+        const data = await API.Orders.getOrderProducts(item.idCommande);
+        setProducts(data);
       } catch (e) {
         console.log(e);
       }
@@ -36,7 +27,7 @@ const OrderDetailScreen = () => {
   useEffect(() => {
     (async () => {
       try {
-        // Change statut
+        API.Orders.setOrderStatut(item.idCommande, selectedValue);
       } catch (e) {
         console.log(e);
       }
@@ -44,42 +35,55 @@ const OrderDetailScreen = () => {
   }, [selectedValue]);
 
   return (
-    <View style={style.container}>
-      <View style={style.head}>
-        <View style={style.info}>
-          <Text>#4854</Text>
-          <Text>Table 12</Text>
-          <Text>TTC 89 EUR</Text>
+    (products.length && (
+      <View style={style.container}>
+        <View style={style.head}>
+          <View style={style.info}>
+            <Text>#{item.idCommande}</Text>
+            <Text>Table {item.idTable}</Text>
+            <Text>
+              TTC{' '}
+              {(products.length &&
+                products
+                  .map(
+                    product =>
+                      product.idProduitDeclinaison.idProduit.prixUnitaire,
+                  )
+                  .reduce((a, b) => a + b)) ||
+                0}{' '}
+              EUR
+            </Text>
+          </View>
+          <View style={style.switch}>
+            <Picker
+              selectedValue={selectedValue}
+              mode="dropdown"
+              style={{
+                height: 50,
+                minWidth: 150,
+              }}
+              onValueChange={(itemValue, itemIndex) =>
+                setSelectedValue(itemValue)
+              }
+              itemStyle={{ backgroundColor: 'red' }}
+            >
+              {states.map((value, i) => (
+                <Picker.Item label={value.nom} key={i} value={value.idStatut} />
+              ))}
+            </Picker>
+          </View>
         </View>
-        <View style={style.switch}>
-          <Picker
-            selectedValue={selectedValue}
-            mode="dropdown"
-            style={{
-              height: 50,
-              minWidth: 150,
-            }}
-            onValueChange={(itemValue, itemIndex) =>
-              setSelectedValue(itemValue)
-            }
-            itemStyle={{ backgroundColor: 'red' }}
-          >
-            {states.map(value => (
-              <Picker.Item label={value.name} value={value.id} />
-            ))}
-          </Picker>
-        </View>
-      </View>
 
-      <View style={style.body}>
-        <FlatList
-          style={style.list}
-          data={products}
-          renderItem={({ item }) => <ProductItem item={products} />}
-          keyExtractor={(item, i) => i}
-        />
+        <View style={style.body}>
+          <FlatList
+            style={style.list}
+            data={products}
+            renderItem={({ item }) => <ProductItem item={item} />}
+            keyExtractor={(item, i) => i}
+          />
+        </View>
       </View>
-    </View>
+    )) || <Loader />
   );
 };
 
