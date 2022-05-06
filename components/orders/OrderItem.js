@@ -2,19 +2,23 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import GlobalStyles from '../../config/styles';
 import MoreIcon from './MoreIcon';
+import dayjs from 'dayjs';
 
-const OrderItem = ({ navigation, item }) => {
+const OrderItem = ({ navigation, item, states }) => {
   return (
     <TouchableOpacity
       style={style.item}
       onPress={() => {
-        navigation.navigate('Detail');
+        navigation.navigate('Detail', { item, states });
       }}
     >
       <View style={style.top}>
         <View>
           <Text style={style.text}>Table {item.idTable}</Text>
-          <Text style={style.text}>{item.date}</Text>
+          <Text style={style.text}>{dayjs(item.date).format('HH:mm:ss')}</Text>
+          <Text style={style.text}>
+            {dayjs(item.date).format('DD/MM/YYYY')}
+          </Text>
         </View>
         <Text style={style.id}>#{item.idCommande}</Text>
       </View>
