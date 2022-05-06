@@ -5,8 +5,10 @@ import GlobalStyles from '../../config/styles';
 const ProductItem = ({ item }) => {
   return (
     <View style={style.container}>
-      <Text>xN nom</Text>
-      <Text>prix EUR TTC</Text>
+      <Text>
+        x{item.quantite} {item.idProduitDeclinaison.idProduit.nom}
+      </Text>
+      <Text>{item.idProduitDeclinaison.idProduit.prixUnitaire} EUR</Text>
     </View>
   );
 };
@@ -16,8 +18,9 @@ const style = StyleSheet.create({
     backgroundColor: GlobalStyles.color.primary,
     padding: 18,
     borderRadius: 8,
-    flexDirection: "row",
-    justifyContent: "space-between"
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 12,
   },
 });
 
