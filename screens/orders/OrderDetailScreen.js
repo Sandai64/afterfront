@@ -28,6 +28,7 @@ const OrderDetailScreen = ({
     (async () => {
       try {
         API.Orders.setOrderStatut(item.idCommande, selectedValue);
+        item.idStatut = states.filter(v => v.idStatut == selectedValue);
       } catch (e) {
         console.log(e);
       }
@@ -68,7 +69,15 @@ const OrderDetailScreen = ({
               itemStyle={{ backgroundColor: 'red' }}
             >
               {states.map((value, i) => (
-                <Picker.Item label={value.nom} key={i} value={value.idStatut} />
+                <Picker.Item
+                  label={value.nom}
+                  key={i}
+                  value={value.idStatut}
+                  style={{
+                    backgroundColor: GlobalStyles.color.secondary,
+                    color: GlobalStyles.color.primary,
+                  }}
+                />
               ))}
             </Picker>
           </View>
