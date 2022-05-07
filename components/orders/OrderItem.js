@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import GlobalStyles from '../../config/styles';
-import MoreIcon from './MoreIcon';
+import { MoreIcon } from '../../static/img/icons';
 import dayjs from 'dayjs';
 
 const OrderItem = ({ navigation, item, states }) => {
@@ -24,7 +24,7 @@ const OrderItem = ({ navigation, item, states }) => {
       </View>
       <View style={style.bottom}>
         <Text style={style.text}>Status : {item.idStatut.nom}</Text>
-        <MoreIcon />
+        <MoreIcon color={GlobalStyles.color.primary} />
       </View>
     </TouchableOpacity>
   );
@@ -49,6 +49,7 @@ const style = StyleSheet.create({
   },
   text: {
     color: GlobalStyles.color.primary,
+    fontFamily: GlobalStyles.fontFamily.interRegular,
   },
   id: {
     color: '#BBB',

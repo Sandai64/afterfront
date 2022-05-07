@@ -5,10 +5,10 @@ import GlobalStyles from '../../config/styles';
 const ProductItem = ({ item }) => {
   return (
     <View style={style.container}>
-      <Text>
+      <Text style={style.text}>
         x{item.quantite} {item.idProduitDeclinaison.idProduit.nom}
       </Text>
-      <Text>{item.idProduitDeclinaison.idProduit.prixUnitaire} EUR</Text>
+      <Text style={style.text}>{item.idProduitDeclinaison.idProduit.prixUnitaire} EUR</Text>
     </View>
   );
 };
@@ -22,6 +22,9 @@ const style = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 12,
   },
+  text: {
+    fontFamily: GlobalStyles.fontFamily.interRegular
+  }
 });
 
 export default ProductItem;
