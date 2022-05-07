@@ -9,7 +9,12 @@ const ProductItem = ({ item }) => {
         x{item.quantite} {item.idProduitDeclinaison.idProduit.nom}
       </Text>
       <Text style={style.text}>
-        {item.idProduitDeclinaison.idProduit.prixUnitaire} EUR
+        {(
+          item.idProduitDeclinaison.idProduit.prixUnitaire *
+          item.quantite *
+          (1 + item.idProduitDeclinaison.idProduit.idTva.pourcentage / 100)
+        ).toFixed(2)}
+        €
       </Text>
     </View>
   );

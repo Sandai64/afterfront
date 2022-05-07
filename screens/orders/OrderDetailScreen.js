@@ -28,10 +28,11 @@ const OrderDetailScreen = ({
     (async () => {
       try {
         API.Orders.setOrderStatut(item.idCommande, selectedValue);
-        item.idStatut = states.filter(v => v.idStatut == selectedValue);
       } catch (e) {
         console.log(e);
+        return;
       }
+      item.idStatut = states.filter(v => v.idStatut == selectedValue)[0];
     })();
   }, [selectedValue]);
 
@@ -43,16 +44,20 @@ const OrderDetailScreen = ({
             <Text style={style.text}>#{item.idCommande}</Text>
             <Text style={style.text}>Table {item.idTable}</Text>
             <Text style={style.text}>
-              TTC{' '}
               {(products.length &&
                 products
                   .map(
                     product =>
-                      product.idProduitDeclinaison.idProduit.prixUnitaire,
+                      product.idProduitDeclinaison.idProduit.prixUnitaire *
+                      product.quantite *
+                      (1 +
+                        product.idProduitDeclinaison.idProduit.idTva
+                          .pourcentage /
+                          100),
                   )
                   .reduce((a, b) => a + b)) ||
-                0}{' '}
-              EUR
+                (0).toFixed(2)}{' '}
+              € TTC
             </Text>
           </View>
           <View style={style.switch}>
