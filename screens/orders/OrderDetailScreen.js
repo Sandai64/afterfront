@@ -72,11 +72,7 @@ const OrderDetailScreen = ({
                   label={value.nom}
                   key={i}
                   value={value.idStatut}
-                  style={{
-                    backgroundColor: GlobalStyles.color.primary,
-                    color: GlobalStyles.color.secondary,
-                    borderRadius: 8,
-                  }}
+                  style={style.picker}
                 />
               ))}
             </Picker>
@@ -113,6 +109,12 @@ const style = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     paddingLeft: 13,
+  },
+  picker: {
+    backgroundColor: GlobalStyles.color.primary,
+    color: GlobalStyles.color.secondary,
+    borderRadius: 8,
+    fontFamily: GlobalStyles.fontFamily.interRegular,
   },
   body: {
     marginTop: 25,
