@@ -11,5 +11,5 @@ export {
   WelcomeScreen,
   OrdersListScreen,
   OrderDetailScreen,
-  UserScreen
-}
+  UserScreen,
+};

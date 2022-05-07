@@ -8,7 +8,9 @@ const ProductItem = ({ item }) => {
       <Text style={style.text}>
         x{item.quantite} {item.idProduitDeclinaison.idProduit.nom}
       </Text>
-      <Text style={style.text}>{item.idProduitDeclinaison.idProduit.prixUnitaire} EUR</Text>
+      <Text style={style.text}>
+        {item.idProduitDeclinaison.idProduit.prixUnitaire} EUR
+      </Text>
     </View>
   );
 };
@@ -23,8 +25,8 @@ const style = StyleSheet.create({
     marginBottom: 12,
   },
   text: {
-    fontFamily: GlobalStyles.fontFamily.interRegular
-  }
+    fontFamily: GlobalStyles.fontFamily.interRegular,
+  },
 });
 
 export default ProductItem;

@@ -32,7 +32,9 @@ const MainTabNavigation = ({ navigation }) => {
           title: 'Commandes',
           headerShown: false,
           tabBarIcon: ({ focused, color, size }) => {
-            return <OrderIcon color={focused ? GlobalStyles.color.primary : color}/>;
+            return (
+              <OrderIcon color={focused ? GlobalStyles.color.primary : color} />
+            );
           },
         }}
         component={OrdersStackNavigation}
@@ -42,7 +44,11 @@ const MainTabNavigation = ({ navigation }) => {
         options={{
           title: 'Mon compte',
           tabBarIcon: ({ focused, color, size }) => {
-            return <AccountIcon color={focused ? GlobalStyles.color.primary : color}/>;
+            return (
+              <AccountIcon
+                color={focused ? GlobalStyles.color.primary : color}
+              />
+            );
           },
         }}
         component={UserScreen}
