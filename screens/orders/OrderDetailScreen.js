@@ -40,9 +40,9 @@ const OrderDetailScreen = ({
       <View style={style.container}>
         <View style={style.head}>
           <View style={style.info}>
-            <Text>#{item.idCommande}</Text>
-            <Text>Table {item.idTable}</Text>
-            <Text>
+            <Text style={style.text}>#{item.idCommande}</Text>
+            <Text style={style.text}>Table {item.idTable}</Text>
+            <Text style={style.text}>
               TTC{' '}
               {(products.length &&
                 products
@@ -66,7 +66,6 @@ const OrderDetailScreen = ({
               onValueChange={(itemValue, itemIndex) =>
                 setSelectedValue(itemValue)
               }
-              itemStyle={{ backgroundColor: 'red' }}
             >
               {states.map((value, i) => (
                 <Picker.Item
@@ -74,15 +73,15 @@ const OrderDetailScreen = ({
                   key={i}
                   value={value.idStatut}
                   style={{
-                    backgroundColor: GlobalStyles.color.secondary,
-                    color: GlobalStyles.color.primary,
+                    backgroundColor: GlobalStyles.color.primary,
+                    color: GlobalStyles.color.secondary,
+                    borderRadius: 8,
                   }}
                 />
               ))}
             </Picker>
           </View>
         </View>
-
         <View style={style.body}>
           <FlatList
             style={style.list}
@@ -124,6 +123,9 @@ const style = StyleSheet.create({
     padding: 20,
   },
   list: {},
+  text: {
+    fontFamily: GlobalStyles.fontFamily.interRegular,
+  },
 });
 
 export default OrderDetailScreen;
