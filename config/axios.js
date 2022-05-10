@@ -11,12 +11,13 @@ instance.interceptors.request.use(async config => {
   
   const localToken = await AsyncStorage.getItem('token');
   
-  if ( localToken ) {
-    config.headers.Authorization = `Bearer ${token}`;
+  if (localToken) {
+    config.headers.Authorization = `Bearer ${localToken}`;
+    console.log("tentative");
   }
 
   config.headers['Content-Type'] = 'application/json';
-  config.headers['Access-Control-Allow-Origin'] = '*';
+  //config.headers['Access-Control-Allow-Origin'] = '*';
   return config;
 });
 
