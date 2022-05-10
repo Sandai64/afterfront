@@ -1,62 +1,70 @@
-import React from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, StyleSheet, Button, TextInput } from 'react-native';
 import GlobalStyles from '../../config/styles';
 import { authActionLogin } from '../../services/authService';
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: GlobalStyles.color.primary,
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    paddingTop: 64,
-    paddingLeft: 18,
-    paddingRight: 18,
-  },
-  pageHeader: {
-    borderBottomColor: 'black',
-    marginBottom: 24,
-    borderWidth: 1,
-    borderTopWidth: 0,
-    borderRightWidth: 0,
-    borderLeftWidth: 0,
-    width: 'fit-content',
-    fontSize: 28,
-  },
-});
-
 const LoginScreen = ({ navigation }) => {
-  const [showLoading, setShowLoading] = useState(false);
-  const [showError, setShowError] = useState(false);
-
-  const delegateShowError = () => {
-    setShowError(true);
-    setTimeout(setShowError(false), 5000);
-  }
-
-  // Define login action
-  const actionLogin = async () => {
-    setShowLoading(true);
-    
-    try {
-      authActionLogin('FIXME', 'FIXME');
-    } catch (_) {
-      delegateShowError();
+  const styles = StyleSheet.create({
+    pageContainer: {
+      display: 'flex',
+      justifyContent: 'center',
+      paddingHorizontal: 32,
+      width: '100%',
+      height: '100%',
+    },
+    fontTitle: {
+      fontFamily: 'Inter_Regular',
+      fontWeight: 'bold',
+      fontSize: 32
+    },
+    hr: {
+      width: '100%',
+      borderColor: '#9f9f9f',
+      marginVertical: 12,
+      borderTopWidth: 1
+    },
+    textInput: {
+      borderColor: '#9f9f9f',
+      borderWidth: 1,
+      padding: 8,
+      borderRadius: 8,
+      marginVertical: 4,
+    },
+    formGroup: {
+      marginBottom: 8
     }
+  });
 
-    setShowLoading(false);
+  const [formUsername, setFormUsername] = useState();
+  const [formPassword, setFormPassword] = useState();
+
+  const handleSubmit = () => {
+    
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.pageHeader}>Connexion</Text>
-      <Button color="#261F18" title="OK, allons-y !" />
+    <View style={styles.pageContainer}>
+      <Text style={styles.fontTitle}>Connexion</Text>
+      <View style={styles.hr}/>
+      <View style={styles.formGroup}>
+        <TextInput
+          style={styles.textInput}
+          placeholder='Adresse e-mail'
+          onChangeText={(text) => { setFormUsername(text); }}
+        />
+        <TextInput
+          style={styles.textInput}
+          placeholder='Mot de passe'
+          onChangeText={(text) => { setFormPassword(text); }}
+        />
+      </View>
 
-      {showLoading &&
-        <Text>Loading...</Text>}
-
-      {showError &&
-        <Text>An error occured.</Text>}
+      <Button
+        onPress={handleSubmit}
+        color="#261F18"
+        title="Se connecter"
+        borderRadius={12}
+      />
     </View>
   );
 };
