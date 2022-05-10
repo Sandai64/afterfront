@@ -3,7 +3,6 @@ import { StyleSheet, Image, View, Animated } from 'react-native';
 import GlobalStyles from '../../config/styles';
 import logo from '../../static/img/logos/logo-full.png';
 import { useFonts } from 'expo-font';
-import { accountRouterDelegate } from '../../services/accountService';
 
 const WelcomeScreen = ({ navigation }) => {
   const wait = 2200;

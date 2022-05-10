@@ -1,4 +1,5 @@
 import AsyncStorageLib from "@react-native-async-storage/async-storage";
+import jwtDecode from "jwt-decode";
 import { instance } from '../config/axios';
 
 // Automatically switch routes based on context
@@ -15,4 +16,12 @@ async function accountRouterDelegate(navigation) {
 
 }
 
-export { accountRouterDelegate }
+const getEmploye = async () => {
+  const localToken = await AsyncStorageLib.getItem('token');
+
+  if(!localToken) return null;
+
+  return jwtDecode(localToken);
+}
+
+export { accountRouterDelegate, getEmploye }
