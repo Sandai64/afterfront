@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, FlatList } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 import { useIsFocused } from '@react-navigation/native';
 import GlobalStyles from '../../config/styles';
 import { Loader, OrderItem } from '../../components';
@@ -10,6 +11,7 @@ const OrdersListScreen = props => {
 
   const [update, setUpdate] = useState(false);
   const [states, setStates] = useState([]);
+  const [selectedValue, setSelectedValue] = useState(10);
 
   // Memory leak ????
   // C'est le seul useState qui le fait alors que state est chargé en même temps
@@ -24,6 +26,8 @@ const OrdersListScreen = props => {
         console.log(e);
       }
     })();
+
+    setSelectedValue(states.length + 1);
   }, []);
 
   useEffect(() => {
@@ -42,15 +46,51 @@ const OrdersListScreen = props => {
   useEffect(() => {
     setInterval(() => {
       setUpdate(!update);
-    }, 1000*5)
+    }, 1000 * 5);
   }, []);
 
+  const _orders = orders.filter(
+    value =>
+      selectedValue == states.length + 1 ||
+      value.idStatut.idStatut == selectedValue,
+  );
+
   return (
-    (orders.length && (
+    (orders.length && states.length && (
       <View style={style.container}>
+        <View style={style.head}>
+          <View style={style.switch}>
+            <Text style={style.title}>Filtre :</Text>
+            <Picker
+              selectedValue={selectedValue}
+              mode="dropdown"
+              style={{
+                height: 50,
+                width: 150,
+              }}
+              onValueChange={(itemValue, itemIndex) =>
+                setSelectedValue(itemValue)
+              }
+            >
+              <Picker.Item
+                label={'Aucun filtre'}
+                value={states.length + 1}
+                style={style.picker}
+              />
+              {states.map((value, i) => (
+                <Picker.Item
+                  label={value.nom}
+                  key={i}
+                  value={value.idStatut}
+                  style={style.picker}
+                />
+              ))}
+            </Picker>
+          </View>
+        </View>
         <FlatList
           style={style.list}
-          data={orders}
+          data={_orders}
           renderItem={({ item }) => (
             <OrderItem {...props} item={item} states={states} />
           )}
@@ -68,6 +108,31 @@ const style = StyleSheet.create({
   },
   list: {
     marginTop: 15,
+  },
+  head: {
+    marginTop: 2,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginHorizontal: 25,
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 16,
+    fontFamily: GlobalStyles.fontFamily.interRegular,
+  },
+  switch: {
+    borderColor: GlobalStyles.color.secondary,
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingLeft: 13,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  picker: {
+    backgroundColor: GlobalStyles.color.primary,
+    color: GlobalStyles.color.secondary,
+    borderRadius: 8,
+    fontFamily: GlobalStyles.fontFamily.interRegular,
   },
 });
 
