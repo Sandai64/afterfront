@@ -73,7 +73,7 @@ const OrdersListScreen = props => {
               }
             >
               <Picker.Item
-                label={'Aucun filtre'}
+                label={'Aucun'}
                 value={states.length + 1}
                 style={style.picker}
               />
