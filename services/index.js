@@ -1,3 +1,3 @@
-import Orders from './OrdersAPI';
+import Orders from './OrdersService';
 
 export default { Orders };
