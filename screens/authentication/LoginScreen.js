@@ -1,3 +1,5 @@
+import AsyncStorageLib from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 import React, { useState } from 'react';
 import { Text, View, StyleSheet, Button, TextInput } from 'react-native';
 import GlobalStyles from '../../config/styles';
@@ -37,9 +39,29 @@ const LoginScreen = ({ navigation }) => {
 
   const [formUsername, setFormUsername] = useState();
   const [formPassword, setFormPassword] = useState();
+  const [shownError, setShownError] = useState(false);
 
-  const handleSubmit = () => {
-    
+  const handleSubmit = async () => {
+    const httpRequest = await axios.post(
+      '/login_check',
+      {
+        'username': formUsername,
+        'password': formPassword,
+      }
+    );
+
+    if (httpRequest.data.token) {
+      await AsyncStorageLib.setItem('token', httpRequest.data.token);
+      navigation.replace('Logged');
+    } else {
+      triggerError();
+    }
+  }
+
+  const triggerError = () => {
+    if (shownError) { return; }
+    setShownError(true);
+    setTimeout(() => { setShownError(false) }, 3000);
   }
 
   return (
