@@ -16,7 +16,8 @@ const WelcomeScreen = ({ navigation }) => {
   useEffect(() => {
     setTimeout(() => {
       // This now handles authentified routing
-      accountRouterDelegate(navigation);
+      // accountRouterDelegate(navigation);
+      navigation.navigate('Login');
     }, wait + 10);
   }, [fontsLoaded]);
 
