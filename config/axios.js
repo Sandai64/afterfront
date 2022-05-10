@@ -11,9 +11,13 @@ instance.interceptors.request.use(async config => {
   
   const localToken = await AsyncStorage.getItem('token');
   
-  if ( localToken && !localToken.error ) {
+  if ( localToken ) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+
+  config.httpsAgent = new https.Agent({  
+    rejectUnauthorized: false
+  });
 
   return config;
 });
