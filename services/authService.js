@@ -14,7 +14,7 @@ async function authActionLogin(username, password) {
       }
     );
   } catch (_) {
-    throw new Error('Login request failed.');
+    throw new Error('services: authService: Login request failed.');
   }
 }
 
