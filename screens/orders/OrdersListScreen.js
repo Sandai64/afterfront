@@ -8,6 +8,7 @@ import API from '../../services';
 const OrdersListScreen = props => {
   const isFocused = useIsFocused();
 
+  const [update, setUpdate] = useState(false);
   const [states, setStates] = useState([]);
 
   // Memory leak ????
@@ -36,7 +37,13 @@ const OrdersListScreen = props => {
         }
       })();
     }
-  }, [isFocused]);
+  }, [isFocused, update]);
+
+  useEffect(() => {
+    setInterval(() => {
+      setUpdate(!update);
+    }, 1000*5)
+  }, []);
 
   return (
     (orders.length && (
