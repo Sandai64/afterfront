@@ -1,12 +1,56 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, FlatList } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 import GlobalStyles from '../../config/styles';
+import { Loader, OrderItem } from '../../components';
+import API from '../../services';
 
-const OrdersScreen = () => {
+const OrdersListScreen = props => {
+  const isFocused = useIsFocused();
+
+  const [states, setStates] = useState([]);
+
+  // Memory leak ????
+  // C'est le seul useState qui le fait alors que state est chargé en même temps
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await API.Orders.getStatuts();
+        setStates(data);
+      } catch (e) {
+        console.log(e);
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (isFocused) {
+      (async () => {
+        try {
+          const data = await API.Orders.getOrders();
+          setOrders(data);
+        } catch (e) {
+          console.log(e);
+        }
+      })();
+    }
+  }, [isFocused]);
+
   return (
-    <View style={style.container}>
-      <Text>OrdersScreen</Text>
-    </View>
+    (orders.length && (
+      <View style={style.container}>
+        <FlatList
+          style={style.list}
+          data={orders}
+          renderItem={({ item }) => (
+            <OrderItem {...props} item={item} states={states} />
+          )}
+          keyExtractor={(item, i) => i}
+        />
+      </View>
+    )) || <Loader />
   );
 };
 
@@ -15,6 +59,9 @@ const style = StyleSheet.create({
     backgroundColor: GlobalStyles.color.primary,
     height: '100%',
   },
+  list: {
+    marginTop: 15,
+  },
 });
 
-export default OrdersScreen;
+export default OrdersListScreen;

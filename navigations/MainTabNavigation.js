@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { UserScreen } from '../screens';
 import GlobalStyles from '../config/styles';
 import OrdersStackNavigation from './OrdersStackNavigation';
+import { AccountIcon, OrderIcon } from '../static/img/icons';
 
 const Tab = createBottomTabNavigator();
 
@@ -14,6 +15,9 @@ const MainTabNavigation = ({ navigation }) => {
         tabBarStyle: {
           backgroundColor: GlobalStyles.color.secondary,
         },
+        tabBarLabelStyle: {
+          fontFamily: GlobalStyles.fontFamily.interRegular,
+        },
         headerStyle: {
           backgroundColor: GlobalStyles.color.primary,
         },
@@ -24,12 +28,29 @@ const MainTabNavigation = ({ navigation }) => {
     >
       <Tab.Screen
         name={'Orders'}
-        options={{ title: 'Commandes', headerShown: false }}
+        options={{
+          title: 'Commandes',
+          headerShown: false,
+          tabBarIcon: ({ focused, color, size }) => {
+            return (
+              <OrderIcon color={focused ? GlobalStyles.color.primary : color} />
+            );
+          },
+        }}
         component={OrdersStackNavigation}
       />
       <Tab.Screen
         name={'User'}
-        options={{ title: 'Mon compte' }}
+        options={{
+          title: 'Mon compte',
+          tabBarIcon: ({ focused, color, size }) => {
+            return (
+              <AccountIcon
+                color={focused ? GlobalStyles.color.primary : color}
+              />
+            );
+          },
+        }}
         component={UserScreen}
       />
     </Tab.Navigator>

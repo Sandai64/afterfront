@@ -6,7 +6,6 @@ import logo from '../../static/img/logos/logo-full.png';
 import { useFonts } from 'expo-font';
 
 const WelcomeScreen = ({ navigation }) => {
-
   const wait = 2200;
   const duration = 250;
 
@@ -17,23 +16,20 @@ const WelcomeScreen = ({ navigation }) => {
   useEffect(() => {
     setTimeout(() => {
       navigation.replace('Logged');
-    }, (wait+10));
+    }, wait + 10);
   }, [fontsLoaded]);
 
   const fadeAnim = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
-    if(fontsLoaded) {
+    if (fontsLoaded) {
       setTimeout(() => {
-        Animated.timing(
-          fadeAnim,
-          {
-            toValue: 0,
-            duration: duration,
-            useNativeDriver: true,
-          }
-        ).start();
-      }, (wait-duration));
+        Animated.timing(fadeAnim, {
+          toValue: 0,
+          duration: duration,
+          useNativeDriver: true,
+        }).start();
+      }, wait - duration);
     }
   }, [fadeAnim, fontsLoaded]);
 

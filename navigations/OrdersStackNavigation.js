@@ -16,6 +16,7 @@ const OrdersStackNavigation = () => {
           backgroundColor: GlobalStyles.color.primary,
         },
         headerTitleStyle: GlobalStyles.headerTitleStyle,
+        animation: 'fade',
       }}
     >
       <Stack.Screen
