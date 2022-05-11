@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, FlatList } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { StyleSheet, View, Text, FlatList, TextInput } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import GlobalStyles from '../../config/styles';
 import { Loader, ProductItem } from '../../components/';
@@ -10,8 +10,12 @@ const OrderDetailScreen = ({
     params: { item, states },
   },
 }) => {
+  const textInputReference = useRef();
+
   const [selectedValue, setSelectedValue] = useState(item.idStatut.idStatut);
   const [products, setProducts] = useState([]);
+  const [isNoteTimerSet, setIsNoteTimerSet] = useState(false);
+  const [more, setMore] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -22,6 +26,11 @@ const OrderDetailScreen = ({
         console.log(e);
       }
     })();
+
+    if(item.more) {
+      setMore(more);
+    }
+    
   }, []);
 
   useEffect(() => {
@@ -35,6 +44,21 @@ const OrderDetailScreen = ({
       item.idStatut = states.filter(v => v.idStatut == selectedValue)[0];
     })();
   }, [selectedValue]);
+
+  // Functions
+  const syncNoteDelegate = () => {
+    if (isNoteTimerSet) {
+      return;
+    }
+    const timer = setInterval(() => {
+      if (!textInputReference.current.isFocused()) {
+        // Axios call
+
+        setIsNoteTimerSet(false);
+        clearInterval(timer);
+      }
+    }, 1000);
+  };
 
   return (
     (products.length && (
@@ -83,13 +107,37 @@ const OrderDetailScreen = ({
             </Picker>
           </View>
         </View>
-        <View style={style.body}>
+        <View>
           <FlatList
             style={style.list}
             data={products}
             renderItem={({ item }) => <ProductItem item={item} />}
             keyExtractor={(item, i) => i}
           />
+          <View style={style.other}>
+            <Text
+              style={[
+                style.text,
+                { color: GlobalStyles.color.primary, marginBottom: 10 },
+              ]}
+            >
+              Information supplémentaire :
+            </Text>
+            <TextInput
+              ref={textInputReference}
+              style={style.textInput}
+              multiline
+              numberOfLines={4}
+              textAlign={'left'}
+              editable
+              maxLength={40}
+              value={more}
+              onChangeText={(v) => setMore(v)}
+              onFocus={() => {
+                syncNoteDelegate();
+              }}
+            />
+          </View>
         </View>
       </View>
     )) || <Loader />
@@ -100,6 +148,7 @@ const style = StyleSheet.create({
   container: {
     backgroundColor: GlobalStyles.color.primary,
     height: '100%',
+    overflow: 'scroll',
   },
   head: {
     marginTop: 15,
@@ -121,17 +170,27 @@ const style = StyleSheet.create({
     borderRadius: 8,
     fontFamily: GlobalStyles.fontFamily.interRegular,
   },
-  body: {
+  list: {
     marginTop: 25,
     marginHorizontal: 25,
     backgroundColor: GlobalStyles.color.secondary,
     borderRadius: 8,
-    minHeight: '75%',
+    minHeight: '100%',
     padding: 20,
   },
-  list: {},
+  other: {
+    marginTop: 25,
+    marginHorizontal: 25,
+    backgroundColor: GlobalStyles.color.secondary,
+    borderRadius: 8,
+    padding: 20,
+  },
   text: {
     fontFamily: GlobalStyles.fontFamily.interRegular,
+  },
+  textInput: {
+    backgroundColor: GlobalStyles.color.primary,
+    borderRadius: 8,
   },
 });
 
