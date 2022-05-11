@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { UserScreen } from '../screens';
+import { AccountScreen } from '../screens';
 import GlobalStyles from '../config/styles';
 import OrdersStackNavigation from './OrdersStackNavigation';
 import { AccountIcon, OrderIcon } from '../static/img/icons';
@@ -51,7 +51,7 @@ const MainTabNavigation = ({ navigation }) => {
             );
           },
         }}
-        component={UserScreen}
+        component={AccountScreen}
       />
     </Tab.Navigator>
   );
