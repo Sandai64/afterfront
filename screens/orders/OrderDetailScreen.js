@@ -26,10 +26,6 @@ const OrderDetailScreen = ({
         console.log(e);
       }
     })();
-
-    if (item.more) {
-      setMore(more);
-    }
   }, []);
 
   useEffect(() => {
