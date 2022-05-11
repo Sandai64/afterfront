@@ -15,7 +15,7 @@ const OrderDetailScreen = ({
   const [selectedValue, setSelectedValue] = useState(item.idStatut.idStatut);
   const [products, setProducts] = useState([]);
   const [isNoteTimerSet, setIsNoteTimerSet] = useState(false);
-  const [more, setMore] = useState("");
+  const [more, setMore] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -27,10 +27,9 @@ const OrderDetailScreen = ({
       }
     })();
 
-    if(item.more) {
+    if (item.more) {
       setMore(more);
     }
-    
   }, []);
 
   useEffect(() => {
@@ -107,14 +106,14 @@ const OrderDetailScreen = ({
             </Picker>
           </View>
         </View>
-        <View>
+        <View 
+            style={style.list}>
           <FlatList
-            style={style.list}
             data={products}
             renderItem={({ item }) => <ProductItem item={item} />}
             keyExtractor={(item, i) => i}
           />
-          <View style={style.other}>
+          {/*<View style={style.other}>
             <Text
               style={[
                 style.text,
@@ -137,7 +136,7 @@ const OrderDetailScreen = ({
                 syncNoteDelegate();
               }}
             />
-          </View>
+            </View>*/}
         </View>
       </View>
     )) || <Loader />
@@ -175,7 +174,7 @@ const style = StyleSheet.create({
     marginHorizontal: 25,
     backgroundColor: GlobalStyles.color.secondary,
     borderRadius: 8,
-    minHeight: '100%',
+    minHeight: '75%',
     padding: 20,
   },
   other: {

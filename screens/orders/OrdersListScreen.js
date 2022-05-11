@@ -27,7 +27,7 @@ const OrdersListScreen = props => {
       }
     })();
 
-    setSelectedValue(states.length + 1);
+    setSelectedValue(states.length+1);
   }, []);
 
   useEffect(() => {
@@ -51,7 +51,7 @@ const OrdersListScreen = props => {
 
   const _orders = orders.filter(
     value =>
-      selectedValue == states.length + 1 ||
+      selectedValue == states.length+1 ||
       value.idStatut.idStatut == selectedValue,
   );
 
